@@ -47,6 +47,19 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                           ))),
+              RaisedButton(
+                  padding: const EdgeInsets.all(40),
+                  child: Text(
+                    "RESET",
+                    style: new TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),
+                  ),
+                  color: Colors.red,
+                  onPressed: () {
+                    print("Button Pressed");
+                  })
             ]));
   }
 }
