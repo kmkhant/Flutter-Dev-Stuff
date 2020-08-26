@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "293035161376",
+    "firebase_url": "https://flash-24bf2.firebaseio.com",
+    "project_id": "flash-24bf2",
+    "storage_bucket": "flash-24bf2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293035161376:android:257197e1ebbd651f878945",
+        "android_client_info": {
+          "package_name": "co.atech.flash_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "293035161376-3sb1hdhme12vas7eol2bsb30ntddo61c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPVFuRE6jy94bp8OtkhVN5NLVFUlpCgRw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293035161376-3sb1hdhme12vas7eol2bsb30ntddo61c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
