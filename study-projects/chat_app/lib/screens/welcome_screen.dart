@@ -42,7 +42,11 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     return Scaffold(
       backgroundColor: animation.value,
       appBar: AppBar(
-        title: Text("Flutter Flash Chat"),
+        title: Text("Flutter Flash Chat", 
+        style: TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.normal
+        ),),
         backgroundColor: Colors.blueAccent,
       ),
       body: Padding(
@@ -57,11 +61,13 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Hero(
-                    tag: 'logo',
-                    child: Container(
-                      child: Image.asset('images/logo.png'),
-                      height: 45,
+                  Flexible(
+                                      child: Hero(
+                      tag: 'logo',
+                      child: Container(
+                        child: Image.asset('images/logo.png'),
+                        height: 45,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -70,7 +76,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   Text(
                     "Flutter Chat App",
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontWeight: FontWeight.w900, fontSize: 30),
+                    style: TextStyle(fontWeight: FontWeight.w900, fontSize: 28),
                   ),
                 ],
               ),

@@ -33,3 +33,11 @@ const kSendButtonTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 18.0,
 );
+
+const kMyButtonRadius = BorderRadius.only(topLeft: Radius.circular(30), 
+                  bottomLeft: Radius.circular(30.0), 
+                  bottomRight: Radius.circular(30.0));
+
+const kOtherButtonRadius = BorderRadius.only(topRight: Radius.circular(30), 
+                  bottomLeft: Radius.circular(30.0), 
+                  bottomRight: Radius.circular(30.0));

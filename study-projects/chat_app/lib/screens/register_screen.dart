@@ -65,7 +65,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 RoundedButton(
                   title: "Register",
-                  colour: Colors.lightBlueAccent,
+                  colour: Colors.blueAccent,
                   onPressed: () async {
                     // print("email");
                     // print("password");

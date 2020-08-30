@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-String loggedInUser;
+User loggedInUser;
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class ChatScreen extends StatefulWidget {
@@ -15,7 +15,6 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final _auth = FirebaseAuth.instance;
   final messageTextController = TextEditingController();
-  User loggedInUser;
   String messageText;
 
   void getCurrentUser() {
@@ -59,6 +58,7 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            MessageStream(),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
@@ -89,10 +89,75 @@ class _ChatScreenState extends State<ChatScreen> {
                 ],
               ),
             ),
-            Container()
+            
           ],
         ),
       ),
     );
+  }
+}
+
+class MessageBubble extends StatelessWidget {
+
+  const MessageBubble({Key key, this.sender, this.text, this.isMe}) : super(key: key);
+
+  final String sender;
+  final String text;
+  final bool isMe;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+          padding: EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            children: [
+              Text("$sender", style: TextStyle(
+                fontSize: 12.0,
+                color: Colors.black54
+              ),),
+              Material(
+                  borderRadius: isMe ? kMyButtonRadius : kOtherButtonRadius,
+                  elevation: 3.0,
+                  color: isMe ? Colors.lightBlueAccent : Colors.white,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    child: Text("$text"))
+      ),
+            ],
+          ),
+    );
+  }
+}
+
+class MessageStream extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+              stream: _firestore.collection('messages').snapshots(),
+              builder: (context, snapshot) {
+                List<MessageBubble> messageWidgets = [];
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(backgroundColor: Colors.lightBlueAccent,),
+                  );
+                }
+                  final messages = snapshot.data.docs.reversed;
+                  for(var message in messages) {
+                    final messageText = message.get('text');
+                    final messageSender = message.get('sender');
+
+                    final currentUser = loggedInUser.email;
+                    messageWidgets.add(MessageBubble(sender: messageSender, text: messageText, isMe: currentUser == messageSender,));
+                  }                                  
+                  return Expanded(                    
+                      child: ListView(
+                        reverse: true,
+                        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+                        children: messageWidgets,
+                    ),
+                  );
+              }
+            );
   }
 }
