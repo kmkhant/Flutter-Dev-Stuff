@@ -1,67 +1,38 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:hello/app_theme.dart';
+import 'package:hello/screens/home_screen.dart';
 
-void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: Scaffold(
-      body: MyApp(),
-    ),
-  ));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown
+  ]).then((value) => runApp(MyApp()));
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> animation;
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(
-      duration: Duration(seconds: 1),
-      vsync: this,
-    );
-
-    animation = CurvedAnimation(
-      parent: controller,
-      curve: Curves.easeInOutCubic,
-    ).drive(Tween(begin: 0, end: 2));
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        controller
-          ..reset()
-          ..forward();
-      },
-      child: RotationTransition(
-        turns: animation,
-        child: Stack(children: <Widget>[
-          Positioned.fill(child: FlutterLogo()),
-          Center(
-            child: Text(
-              'Click Me',
-              style: TextStyle(
-                fontSize: 60.0,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          )
-        ]),
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness:
+            Platform.isAndroid ? Brightness.dark : Brightness.light,
+        systemNavigationBarColor: Colors.white,
+        systemNavigationBarDividerColor: Colors.grey,
+        systemNavigationBarIconBrightness: Brightness.dark));
+    return MaterialApp(
+      title: "Flutter Downloader",
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        textTheme: AppTheme.textTheme,
+        platform: TargetPlatform.android,
       ),
+      home: HomeScreen(),
     );
   }
 }
