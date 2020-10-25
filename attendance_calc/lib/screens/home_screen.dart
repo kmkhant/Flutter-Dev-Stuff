@@ -1,3 +1,4 @@
+import 'package:attendance_calc/utilities/custom_dialog_box.dart';
 import 'package:flutter/material.dart';
 import 'package:attendance_calc/utilities/styles.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -188,6 +189,11 @@ class _HomeScreenState extends State<HomeScreen>
                     MaterialButton(
                         onPressed: () {
                           print("adjust");
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return CustomDialogBox();
+                              });
                         },
                         elevation: 0,
                         shape: RoundedRectangleBorder(
